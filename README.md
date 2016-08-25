@@ -16,6 +16,13 @@ go build
 go install
 ```
 
+## With Homebrew
+
+```
+$ brew tap 'Samsung-AG/terraform-provider-coreosbox'
+$ brew install terraform-provider-coreosbox
+```
+
 ## Usage
 
 
