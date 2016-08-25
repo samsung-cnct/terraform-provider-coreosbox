@@ -2,6 +2,7 @@ package main
 
 import (
   "fmt"
+  "strings"
   "net/http"
   "errors"
   "encoding/json"
@@ -71,7 +72,7 @@ func CreateAmi(d *schema.ResourceData, meta interface{}) error {
   if err != nil {
     return err
   }
-  d.Set("box_string", box_info)
+  d.Set("box_string", strings.TrimSpace(box_info))
 
   d.SetId(getID(d))
   return nil
@@ -97,7 +98,7 @@ func ReadAmi(d *schema.ResourceData, meta interface{}) error {
   if err != nil {
     return err
   }
-  d.Set("box_string", box_info)
+  d.Set("box_string", strings.TrimSpace(box_info))
 
   d.SetId(getID(d))
   return nil
