@@ -107,3 +107,21 @@ output "info_vmware_versioned" {
     value = "Version: ${coreosbox_vagrant.versioned_vagrant_vmware.version_out}, box: ${coreosbox_vagrant.versioned_vagrant_vmware.box_string}." 
 }
 ```
+
+## Cutting release
+This is a manual release process, we may automate it in the future if there is a need.
+
+Steps:
+1. build linux executable:
+`GOOS=linux GOARCH=amd64 go build`
+2. tar linux executable
+`tar -cf terraform-provider-coreosbox_linux_amd64.tar terraform-provider-coreosbox`
+3. gzip linux executable
+`gzip terraform-provider-coreosbox_linux_amd64.tar`
+4. repeat above for darwin build
+5. click 'Draft a new release' on releases page
+6. fill out form
+7. Add both tar.gz files
+
+Reccomended:
+1. update https://github.com/samsung-cnct/homebrew-terraform-provider-coreos with new version information
