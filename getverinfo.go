@@ -1,43 +1,42 @@
 package main
 
 import (
-  "fmt"
-  "net/http"
-  "io/ioutil"
-  "strings"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
 
-  "github.com/dlintw/goconf"
-  "github.com/hashicorp/terraform/helper/schema"
+	"github.com/dlintw/goconf"
+	"github.com/hashicorp/terraform/helper/schema"
 )
 
 func getVerInfo(d *schema.ResourceData) (val string, err error) {
-  url := fmt.Sprintf(
-    "http://%s.release.core-os.net/amd64-usr/%s/version.txt", 
-    d.Get("channel").(string), 
-    d.Get("version").(string))
+	url := fmt.Sprintf(
+		"http://%s.release.core-os.net/amd64-usr/%s/version.txt",
+		d.Get("channel").(string),
+		d.Get("version").(string))
 
-  resp, err := http.Get(url)
-  if err != nil {
-    return "", err
-  }
-  defer resp.Body.Close()
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
 
-  bodyBytes, err := ioutil.ReadAll(resp.Body) 
-  if err != nil {
-    return "", err
-  }
-  verInfo, err := goconf.ReadConfigBytes(bodyBytes)
-  if err != nil {
-    return "", err
-  }
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	verInfo, err := goconf.ReadConfigBytes(bodyBytes)
+	if err != nil {
+		return "", err
+	}
 
-  return verInfo.GetString("default", "COREOS_VERSION")
+	return verInfo.GetString("default", "COREOS_VERSION")
 }
 
 func getID(d *schema.ResourceData) string {
-  channel := d.Get("channel").(string)
-  v := d.Get("version").(string)
+	channel := d.Get("channel").(string)
+	v := d.Get("version").(string)
 
-  return strings.Join([]string{channel, v}, ":")
+	return strings.Join([]string{channel, v}, ":")
 }
-

@@ -8,9 +8,9 @@ import (
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		ResourcesMap: map[string]*schema.Resource{
-			"coreosbox_ami": resourceCoreOSBoxAmi(),
-      "coreosbox_gce": resourceCoreOSBoxGce(),
-      "coreosbox_vagrant": resourceCoreOSBoxVagrant(),
+			"coreosbox_ami":     resourceCoreOSBoxAmi(),
+			"coreosbox_gce":     resourceCoreOSBoxGce(),
+			"coreosbox_vagrant": resourceCoreOSBoxVagrant(),
 		},
 	}
 }
